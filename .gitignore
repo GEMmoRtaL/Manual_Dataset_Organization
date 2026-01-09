@@ -1,6 +1,8 @@
 __pycache__
 .vscode
 FreiHAND/*
+!FreiHand/.gitkeep
 models/*
+!models/.gitkeep
 output_vis_freihand/
 人手数据集整理计划.md
