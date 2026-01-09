@@ -42,22 +42,26 @@ def render_mesh(img, verts, faces, K, color=(0, 255, 0)):
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    
+
     print(f"初始化 Reader，路径: {DATA_ROOT}")
     try:
         reader = FreiHandReader(DATA_ROOT, MANO_PATH)
     except Exception as e:
         print(f"初始化失败: {e}")
         return
-    
+
     # 随机取 5 个样本
-    indices = [0, 100, 200, 555, 1000] 
-    
+    indices = [0, 100, 200, 555, 1000]
+
     print("开始生成可视化...")
     for i, idx in enumerate(indices):
         print(f"正在处理第 {idx} 张图片...")
+
         data = reader.get_frame_data(idx)
-        
+        if data is None:
+            print(f"[SKIP] 跳过 idx={idx}")
+            continue
+
         img = data['image_bgr'].copy()
         K = data['K']
         
